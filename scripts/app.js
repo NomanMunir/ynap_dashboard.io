@@ -1,0 +1,26 @@
+const parseData = (file) => {
+    spinner.innerHTML = spinnerElem;
+    Papa.parse(file, {
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+            CONFIG.parsedData = results.data;
+            segregateByName()
+            spinner.innerHTML = ""
+        }
+    });
+}
+function fileChangeHandler(e) {
+    e.preventDefault();
+    const fileElem = document.querySelector('#fileElem');
+    const file = fileElem.files[0]
+    if (!file.name.endsWith('csv')) {
+        alert("Please select csv file")
+        return
+    }
+    parseData(file)
+}
+
+document.querySelector('#fileElem').addEventListener('change', fileChangeHandler)
+document.querySelector('#btn-filter-break').addEventListener('click', () => makeTable())
+
