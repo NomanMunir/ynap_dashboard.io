@@ -55,7 +55,7 @@ const makeTable = () => {
 
       return `    
                 <tr>
-						<th scop="row">${capitalizeFirstLetter(packerName)}</th>
+						<th scop="row">${capitalize(packerName)}</th>
 						<td>${packerId}</td>
 						<td>${numberOfItems.length}</td>
 						<td>${numberOfOrders.length}</td>

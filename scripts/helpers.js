@@ -30,3 +30,23 @@ const toHoursAndMinutes = (ms) => {
 const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+function camelize(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+        if (+match === 0) return "";
+        // or if (/\s+/.test(match)) for white spaces
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+}
+/**
+ * Capitalizes first letters of words in string.
+ * @param {string} str String to be modified
+ * @param {boolean=false} lower Whether all other letters should be lowercased
+ * @return {string}
+ * @usage
+ *   capitalize('fix this string');     // -> 'Fix This String'
+ *   capitalize('javaSCrIPT');          // -> 'JavaSCrIPT'
+ *   capitalize('javaSCrIPT', true);    // -> 'Javascript'
+ */
+const capitalize = (str, lower = false) =>
+    (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+;
