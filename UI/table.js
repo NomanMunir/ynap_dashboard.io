@@ -90,6 +90,6 @@ const makeTable = () => {
 
 
   // Charts
-  makeChart(dataForChart);
+  // makeChart(dataForChart);
 
 }
