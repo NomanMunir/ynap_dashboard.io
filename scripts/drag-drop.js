@@ -26,6 +26,6 @@ dropArea.addEventListener('drop', handleDrop, false)
 
 function handleDrop(e) {
     let dt = e.dataTransfer
-    let files = dt.files['0']
+    let files = dt.files
     parseData(files)
 }

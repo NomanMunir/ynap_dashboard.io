@@ -91,5 +91,6 @@ const makeTable = () => {
 
   // Charts
   // makeChart(dataForChart);
+  spinner.innerHTML = ""
 
 }
