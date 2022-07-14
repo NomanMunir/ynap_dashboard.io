@@ -1,5 +1,21 @@
-#table {
+/* #table {
     width: 900px;
+} */
+section {
+    background-color: #EFF4F7;
+
+}
+
+#table {
+    box-shadow: 0 6px 14px 0 rgba(33, 35, 68, .05);
+    margin: 10px;
+    background-color: white;
+}
+
+#charts {
+    box-shadow: 0 6px 14px 0 rgba(33, 35, 68, .05);
+    margin: 10px;
+    background-color: white;
 }
 
 #drop-area {

@@ -1,8 +1,10 @@
+
 const makeTable = () => {
   const data = CONFIG.segregatedData
   const tableElement = document.querySelector('#table');
   const tableHtml =
     [`
+    <div class="table-responsive p-2 text-center shadow-sm">
 		<table class="table table-hover">
 			<thead>
 				<tr class="table-warning">
@@ -84,13 +86,16 @@ const makeTable = () => {
         <th>${(grandAverageUph.reduce((a, v) => a + v, 0) / grandAverageUph.length).toFixed(2)}</th>
         <th>${toHoursAndMinutes(Math.floor(grandTotalTimeMs / grandAverageTotalTime.length))} hr</th>
 				</tr>`)
-  tableHtml.push('</tfoot></table>')
+  tableHtml.push('</tfoot></table></div>')
   tableElement.innerHTML = tableHtml.join('');
+  document.querySelector('#btn-filter-break').disabled = false
+
 
 
 
   // Charts
   // makeChart(dataForChart);
+  apexCharts(dataForChart)
   spinner.innerHTML = ""
 
 }

@@ -1,10 +1,10 @@
 const makeChart = (data) => {
-    document.getElementById('charts').innerHTML = '<canvas id="myChart" width="1000" height="800"></canvas>'
+    document.getElementById('charts').innerHTML = '<div class="shadow-sm"><canvas id="myChart" width="1000" height="800"></canvas></div>'
     //sort packer by high uph
     const top10 = data.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph']).slice(0, 9)
 
-    const month = new Date("2/28/2022").toLocaleString('default', { month: 'long' });
-    const year = new Date("2/28/2022").getFullYear();
+    const month = new Date(CONFIG.parsedData[0]["Packing End"]).toLocaleString('default', { month: 'long' });
+    const year = new Date(CONFIG.parsedData[0]["Packing End"]).getFullYear();
 
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
@@ -12,7 +12,7 @@ const makeChart = (data) => {
         data: {
             labels: top10.map(item => item.name.toUpperCase()),
             datasets: [{
-                label: 'Top Ten Packer',
+                label: `Top Ten Packers of ${month}`,
                 data: top10.map(item => item["uph"]),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -34,7 +34,8 @@ const makeChart = (data) => {
             }]
         },
         options: {
-            responsive: false,
+            indexAxis: "y",
+            responsive: true,
             scales: {
                 y: {
                     beginAtZero: true
@@ -44,3 +45,47 @@ const makeChart = (data) => {
     });
     return myChart
 }
+
+const apexCharts = (data) => {
+    // document.getElementById('charts').innerHTML = '<div class="shadow-sm"><canvas id="myChart" width="1000" height="800"></canvas></div>'
+    const top10 = data.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph']).slice(0, 9)
+    const options = {
+
+        chart: {
+            type: 'bar',
+            height: 500,
+            width: 800
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                dataLabels: {
+                    position: 'top',
+                },
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            offsetX: -6,
+            style: {
+                fontSize: '12px',
+                colors: ['#fff']
+            }
+        },
+        tooltip: {
+            shared: true,
+            intersect: false
+        },
+        series: [{
+            name: 'sales',
+            // top10.map(item => item["uph"])
+            data: [1, 3, 40, 23, 45, 23, 43, 53, 45, 12],
+        }],
+        xaxis: {
+            categories: top10.map(item => item.name.toUpperCase()),
+        }
+    }
+    const chart = new ApexCharts(document.querySelector("#charts"), options);
+    chart.render();
+}
+

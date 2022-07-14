@@ -1,7 +1,7 @@
+// Parsing files Here with Papaparse
 const parseData = (files) => {
     spinner.innerHTML = spinnerElem;
     // const file = files[0]
-
     Object.values(files).forEach(file => {
         Papa.parse(file, {
             header: true,
@@ -10,7 +10,6 @@ const parseData = (files) => {
             complete: function (results) {
                 CONFIG.parsedData.push(...results.data)
                 segregateByName()
-
             }
         })
     });
@@ -19,7 +18,6 @@ const parseData = (files) => {
 function fileChangeHandler(e) {
     e.preventDefault();
     const fileElem = document.querySelector('#fileElem');
-    console.log(fileElem.files)
     if (!fileElem.files[0].name.endsWith('csv')) {
         alert("Please select csv file")
         return
@@ -28,5 +26,6 @@ function fileChangeHandler(e) {
 }
 
 document.querySelector('#fileElem').addEventListener('change', fileChangeHandler)
+
 document.querySelector('#btn-filter-break').addEventListener('click', () => makeTable())
 
