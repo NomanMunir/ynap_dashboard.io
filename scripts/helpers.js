@@ -1,7 +1,6 @@
 const getTotalTime = (packerData) => {
 
     let breakTime = document.querySelector('#break-time').value;
-    console.log(breakTime);
     breakTime = +breakTime * 1000 * 60;
     let totalTimeInMs = 0;
 
@@ -17,13 +16,13 @@ const getTotalTime = (packerData) => {
             totalTimeInMs += diffBtwOrders
         }
     })
-    return totalTimeInMs;
+    return totalTimeInMs / 3600000;
 }
-const toHoursAndMinutes = (ms) => {
+const toHoursAndMinutes = (hr) => {
     const padTo2Digits = (num) => {
         return num.toString().padStart(2, '0');
     }
-    const totalMinutes = Math.floor(ms / 60000);
+    const totalMinutes = Math.floor(hr * 60);
     const minutes = totalMinutes % 60;
     const hours = Math.floor(totalMinutes / 60);
     return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}`;

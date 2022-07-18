@@ -47,6 +47,7 @@ const makeChart = (data) => {
 }
 
 const apexCharts = (data) => {
+    document.getElementById('charts').innerHTML = ""
     // document.getElementById('charts').innerHTML = '<div class="shadow-sm"><canvas id="myChart" width="1000" height="800"></canvas></div>'
     const top10 = data.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph']).slice(0, 9)
     const options = {
@@ -54,7 +55,14 @@ const apexCharts = (data) => {
         chart: {
             type: 'bar',
             height: 500,
-            width: 800
+            width: 600,
+            // dropShadow: {
+            //     enabled: true,
+            //     top: 0,
+            //     left: 0,
+            //     blur: 3,
+            //     opacity: 0.5
+            // }
         },
         plotOptions: {
             bar: {
@@ -78,8 +86,8 @@ const apexCharts = (data) => {
         },
         series: [{
             name: 'sales',
-            // top10.map(item => item["uph"])
-            data: [1, 3, 40, 23, 45, 23, 43, 53, 45, 12],
+            data: top10.map(item => item["uph"]),
+            // data: [1, 3, 40, 23, 45, 23, 43, 53, 45, 12],
         }],
         xaxis: {
             categories: top10.map(item => item.name.toUpperCase()),
