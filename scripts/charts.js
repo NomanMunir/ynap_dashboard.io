@@ -1,5 +1,5 @@
 const makeChart = (data) => {
-    document.getElementById('charts').innerHTML = '<div class="shadow-sm"><canvas id="myChart" width="1000" height="800"></canvas></div>'
+    document.getElementById('uph-charts').innerHTML = '<div class="shadow-sm"><canvas id="myChart" width="1000" height="800"></canvas></div>'
     //sort packer by high uph
     const top10 = data.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph']).slice(0, 9)
 
@@ -47,7 +47,7 @@ const makeChart = (data) => {
 }
 
 const apexCharts = (data) => {
-    document.getElementById('charts').innerHTML = ""
+    document.getElementById('uph-charts').innerHTML = ""
     // document.getElementById('charts').innerHTML = '<div class="shadow-sm"><canvas id="myChart" width="1000" height="800"></canvas></div>'
     const top10 = data.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph']).slice(0, 9)
     const options = {
@@ -93,7 +93,7 @@ const apexCharts = (data) => {
             categories: top10.map(item => item.name.toUpperCase()),
         }
     }
-    const chart = new ApexCharts(document.querySelector("#charts"), options);
+    const chart = new ApexCharts(document.querySelector("#uph-charts"), options);
     chart.render();
 }
 
