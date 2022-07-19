@@ -1,4 +1,6 @@
 
+const table = Object.create({});
+
 const makeTable = () => {
   const data = segregatedData;
   const tableElement = document.querySelector('#table');
@@ -33,12 +35,14 @@ const makeTable = () => {
 
   tableHtml.push(Object.entries(data).slice().filter(([packerName, packerData]) => Object.keys(packerData['orders']).length > 2)
     .map(([packerName, packerData]) => {
+
       const packerId = packerData['items'][0]['Packed by']
       const numberOfItems = packerData['items'];
       const numberOfOrders = Object.keys(packerData['orders']);
       const upo = numberOfItems.length / numberOfOrders.length;
       const totalTimeInHr = getTotalTime(packerData)
       const uph = numberOfItems.length / totalTimeInHr
+
 
       // Grand Total Values
       grandTotalOfItems += numberOfItems.length
@@ -55,10 +59,20 @@ const makeTable = () => {
       grandAverageUpo.push(upo);
       grandAverageTotalTime.push(totalTimeInHr)
 
+      // table object      
+      table[packerName] = {};
+      table[packerName]["packerId"] = packerId;
+      table[packerName]["numberOfItems"] = numberOfItems;
+      table[packerName]["numberOfOrders"] = numberOfOrders;
+      table[packerName]["upo"] = upo;
+      table[packerName]["uph"] = uph;
+      table[packerName]["totalTimeInHr"] = totalTimeInHr;
+
+
       return `    
-                <tr>
-						<th scop="row">${capitalize(packerName)}</th>
-						<td>${packerId}</td>
+      <tr>
+      <th scop="row">${capitalize(packerName)}</th>
+      <td>${packerId}</td>
 						<td>${numberOfItems.length}</td>
 						<td>${numberOfOrders.length}</td>
 						<td >${upo.toFixed(2)}</td>
@@ -88,6 +102,8 @@ const makeTable = () => {
 				</tr>`)
   tableHtml.push('</tfoot></table></div>')
   tableElement.innerHTML = tableHtml.join('');
+
+
   document.querySelector('#btn-filter-break').disabled = false
 
 
@@ -96,7 +112,6 @@ const makeTable = () => {
   // Charts
   // makeChart(dataForChart);
   apexCharts(dataForChart)
-  console.log(dataForChart);
   spinner.innerHTML = ""
 
 }
