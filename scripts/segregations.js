@@ -1,5 +1,5 @@
 const segregateByName = () => {
-    const cleanAndSortedData = CONFIG.parsedData.sort((a, b) => {
+    const cleanAndSortedData = parsedData.sort((a, b) => {
         return new Date(a['Packing End']) - new Date(b["Packing End"])
     })
     const countOfItemByPackId = cleanAndSortedData
@@ -15,6 +15,6 @@ const segregateByName = () => {
             acc[packerName]['orders'][orders].push(order)
             return acc
         }, {})
-    CONFIG.segregatedData = countOfItemByPackId
+    segregatedData = countOfItemByPackId
     makeTable()
 }

@@ -1,3 +1,4 @@
+let parsedData, segregatedData;
 // Parsing files Here with Papaparse
 const parseData = (files) => {
     spinner.innerHTML = spinnerElem;
@@ -8,7 +9,7 @@ const parseData = (files) => {
             skipEmptyLines: true,
             dynamicTyping: true,
             complete: function (results) {
-                CONFIG.parsedData.push(...results.data)
+                parsedData = results.data
                 segregateByName()
             }
         })

@@ -49,4 +49,41 @@ function camelize(str) {
  */
 const capitalize = (str, lower = false) =>
     (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
-;
+const averageOfUph = (uph) => {
+    let result;
+    if (uph) {
+        result = uph <= 20 ? 15
+            : uph >= 21 && uph <= 25 ? 43
+                : uph >= 26 && uph <= 30 ? 55
+                    : uph >= 31 && uph <= 35 ? 62
+                        : uph >= 36 && uph <= 40 ? 63
+                            : uph >= 41 && uph <= 45 ? 64
+                                : 65
+    }
+    return result
+}
+const averageOfUpo = (upo) => {
+    let result;
+    if (upo) {
+        result = upo <= 1 ? 20
+            : upo >= 1.0001 && upo <= 2.00 ? 18
+                : upo >= 2.0001 && upo <= 3.00 ? 17
+                    : upo >= 3.0001 && upo <= 4.00 ? 8
+                        : upo >= 4.0001 && upo <= 5.00 ? 6
+                            : 5
+    }
+    return result
+}
+const sumOfTimeTaken = (time) => {
+    let result;
+    if (time) {
+        result = time <= 50 ? 2
+            : time >= 51 && time <= 100 ? 9
+                : time >= 101 && time <= 125 ? 12
+                    : time >= 126 && time <= 150 ? 14
+                        : time >= 151 && time <= 175 ? 14
+                            : time >= 176 && time <= 200 ? 15
+                                : 15
+    }
+    return result
+}

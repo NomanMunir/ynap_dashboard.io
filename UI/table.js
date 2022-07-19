@@ -1,6 +1,6 @@
 
 const makeTable = () => {
-  const data = CONFIG.segregatedData
+  const data = segregatedData;
   const tableElement = document.querySelector('#table');
   const tableHtml =
     [`
@@ -96,6 +96,7 @@ const makeTable = () => {
   // Charts
   // makeChart(dataForChart);
   apexCharts(dataForChart)
+  console.log(dataForChart);
   spinner.innerHTML = ""
 
 }

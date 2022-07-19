@@ -85,7 +85,7 @@ const apexCharts = (data) => {
             intersect: false
         },
         series: [{
-            name: 'sales',
+            name: 'UPH',
             data: top10.map(item => item["uph"]),
             // data: [1, 3, 40, 23, 45, 23, 43, 53, 45, 12],
         }],
