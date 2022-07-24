@@ -18,6 +18,46 @@ const getTotalTime = (packerData) => {
     })
     return totalTimeInMs / 3600000;
 }
+
+const getDataforTable = () => {
+    const results = (Object.entries(segregatedData).slice().filter(([packerName, packerData]) => Object.keys(packerData['orders']).length > 2)
+        .reduce((result, [packerName, packerData]) => {
+
+            const packerId = packerData['items'][0]['Packed by']
+            const numberOfItems = packerData['items'];
+            const numberOfOrders = packerData['orders'];
+            const upo = numberOfItems.length / Object.keys(numberOfOrders).length;
+            const totalTimeInHr = getTotalTime(packerData)
+            const uph = numberOfItems.length / totalTimeInHr
+
+            result.push(
+                {
+                    packerName,
+                    packerId,
+                    numberOfItems,
+                    numberOfOrders,
+                    totalTimeInHr,
+                    upo,
+                    uph
+                }
+            )
+            return result
+        }, []));
+    return results
+}
+const monthPerformance = (packers) => {
+    const packersAvgPerf = packers.reduce((a, packer) => {
+        const avguph = averageOfUph(packer['uph'])
+        const avgupo = averageOfUph(packer['upo'])
+        const avgHr = sumOfTimeTaken(packer['totalTimeInHr'])
+        a.push({
+            packerName: packer['packerName'],
+            totalAvg: avguph + avgupo + avgHr
+        })
+        return a
+    }, [])
+    return packersAvgPerf
+}
 const toHoursAndMinutes = (hr) => {
     const padTo2Digits = (num) => {
         return num.toString().padStart(2, '0');
@@ -88,3 +128,13 @@ const sumOfTimeTaken = (time) => {
     }
     return result
 }
+
+const chooseColorForChart = (uph) => {
+    let result;
+    if (uph) {
+        result = uph < 30 ? "#bc6c25"
+            : uph >= 30 && uph <= 40 ? "#588157"
+                : "#0077b6"
+    }
+    return result
+} 

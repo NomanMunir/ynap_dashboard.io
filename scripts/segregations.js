@@ -5,7 +5,7 @@ const segregateByName = () => {
     const countOfItemByPackId = cleanAndSortedData
         .filter(order => order['Packer Name'] !== "undefined" && order['Packer Name'] !== 'null' && order['Packer Name'] !== '' && order["Packer Name"] !== undefined && order["Order ID"])
         .reduce((acc, order) => {
-            const packerName = order['Packer Name'].toLowerCase().trim();
+            const packerName = order['Packer Name'].toUpperCase().trim();
             const orders = order['Order Number']
             acc[packerName] = acc[packerName] || {};
             acc[packerName]["items"] = acc[packerName]["items"] || []

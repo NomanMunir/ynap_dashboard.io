@@ -29,4 +29,3 @@ function fileChangeHandler(e) {
 document.querySelector('#fileElem').addEventListener('change', fileChangeHandler)
 
 document.querySelector('#btn-filter-break').addEventListener('click', () => makeTable())
-
