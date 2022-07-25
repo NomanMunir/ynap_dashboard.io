@@ -132,9 +132,9 @@ const sumOfTimeTaken = (time) => {
 const chooseColorForChart = (uph) => {
     let result;
     if (uph) {
-        result = uph < 30 ? "#bc6c25"
-            : uph >= 30 && uph <= 40 ? "#588157"
-                : "#0077b6"
+        result = uph < 25 ? "#F37878"
+            : uph >= 25 && uph < 30 ? "#FFCC00"
+                : uph >= 30 ? "#3CCF4E" : "#3CCF4E"
     }
     return result
 } 

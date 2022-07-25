@@ -82,7 +82,7 @@ const makeTable = () => {
   // Charts
   makeChart(packers);
   // uphChart(packers)
-  perfChart(packers)
+  // perfChart(packers)
   spinner.innerHTML = ""
 
 }
