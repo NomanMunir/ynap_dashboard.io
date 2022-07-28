@@ -129,12 +129,21 @@ const sumOfTimeTaken = (time) => {
     return result
 }
 
-const chooseColorForChart = (uph) => {
+const chooseColorForUphChart = (uph) => {
     let result;
     if (uph) {
         result = uph < 25 ? "#F37878"
             : uph >= 25 && uph < 30 ? "#FFCC00"
                 : uph >= 30 ? "#3CCF4E" : "#3CCF4E"
+    }
+    return result
+}
+const chooseColorForPerfChart = (perf) => {
+    let result;
+    if (perf) {
+        result = perf < 75 ? "#F37878"
+            : perf >= 75 && perf < 80 ? "#FFCC00"
+                : perf >= 80 ? "#3CCF4E" : "#3CCF4E"
     }
     return result
 } 
