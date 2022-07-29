@@ -1,3 +1,4 @@
+
 const uphChart = (packersData) => {
     document.getElementById('uph-charts').innerHTML = '<div class="shadow-sm"><canvas id="cnv_uph_chart" width="1000" height="800"></canvas></div>'
     //sort packer by high uph
@@ -26,7 +27,12 @@ const uphChart = (packersData) => {
                 datalabels: {
                     anchor: "end",
                     align: "start",
-                    color: '#00000'
+                    color: '#00000',
+                    textAlign: "center",
+                    formatter: function (value, context) {
+                        let name = context.chart.config._config.data.labels[context.dataIndex];
+                        return value + "\n\n" + name;
+                    }
                 }
             },
             indexAxis: "x",
