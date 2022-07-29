@@ -9,18 +9,27 @@ const uphChart = (packersData) => {
     const ctx = document.getElementById('cnv_uph_chart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: "bar",
+        plugins: [ChartDataLabels],
         data: {
             labels: packers.map(packer => packer.packerName.toUpperCase()),
             datasets: [{
                 label: `UPH for ${month}`,
-                data: packers.map(item => item["uph"]),
+                data: packers.map(item => ~~item["uph"]),
                 backgroundColor: backgroundColor,
                 borderColor: backgroundColor,
                 borderWidth: 1
             }]
         },
         options: {
-            indexAxis: "y",
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    anchor: "end",
+                    align: "start",
+                    color: '#00000'
+                }
+            },
+            indexAxis: "x",
             responsive: true,
             scales: {
                 y: {
@@ -64,7 +73,7 @@ const perfChart = (packersData) => {
             }]
         },
         options: {
-            indexAxis: "y",
+            indexAxis: "x",
             responsive: true,
             scales: {
                 y: {

@@ -142,8 +142,8 @@ const chooseColorForPerfChart = (perf) => {
     let result;
     if (perf) {
         result = perf < 75 ? "#F37878"
-            : perf >= 75 && perf < 80 ? "#FFCC00"
-                : perf >= 80 ? "#3CCF4E" : "#3CCF4E"
+            : perf >= 75 && perf < 85 ? "#FFCC00"
+                : perf >= 85 ? "#3CCF4E" : "#3CCF4E"
     }
     return result
 } 

@@ -17,6 +17,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
 		integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"
+		integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"
 		integrity="sha512-yhdujT21BI/kqk9gcupTh4jMwqLhb+gc6Ytgs4cL0BJjXW+Jo9QyllqLbuluI0cBHqV4XsR7US3lemEGjogQ0w=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -42,12 +46,10 @@
 			<button disabled="true" id="btn-filter-break" class="btn btn-primary mt-3">Filter</button>
 		</div>
 	</div>
-	<section class="d-flex justify-content-between gx-3">
+	<section class="d-flex flex-column justify-content-center gx-3">
+		<div class="" id="perf-charts"></div>
 		<div id="table" class=""></div>
-		<div class="charts d-flex flex-column">
-			<div class="" id="perf-charts"></div>
-			<div class="" id="uph-charts"></div>
-		</div>
+		<div class="" id="uph-charts"></div>
 	</section>
 	<center>
 		<div class="spinner"></div>
