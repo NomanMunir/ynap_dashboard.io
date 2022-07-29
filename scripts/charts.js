@@ -1,6 +1,6 @@
 
 const uphChart = (packersData) => {
-    document.getElementById('uph-charts').innerHTML = '<div class="shadow-sm"><canvas id="cnv_uph_chart" width="1000" height="800"></canvas></div>'
+    document.getElementById('uph-charts').innerHTML = '<div class="shadow-sm m-3"><canvas id="cnv_uph_chart"></canvas></div>'
     //sort packer by high uph
     const packers = packersData.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph'])
     const backgroundColor = packers.map(packer => chooseColorForUphChart(packer['uph']))
@@ -8,6 +8,7 @@ const uphChart = (packersData) => {
     const year = new Date(parsedData[0]["Packing End"]).getFullYear();
 
     const ctx = document.getElementById('cnv_uph_chart').getContext('2d');
+    ctx.font = "30px Arial";
     const myChart = new Chart(ctx, {
         type: "bar",
         plugins: [ChartDataLabels],
@@ -29,9 +30,21 @@ const uphChart = (packersData) => {
                     align: "start",
                     color: '#00000',
                     textAlign: "center",
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold',
+                                size: "15px"
+                            }
+                        },
+                        // value: {
+                        //     color: 'green'
+                        // },
+                    },
                     formatter: function (value, context) {
+                        console.log(context)
                         let name = context.chart.config._config.data.labels[context.dataIndex];
-                        return value + "\n\n" + name;
+                        return [value, "\n\n", Array.from(name).join(" \n ")];
                     }
                 }
             },
@@ -57,7 +70,7 @@ const uphChart = (packersData) => {
 }
 
 const perfChart = (packersData) => {
-    document.getElementById('perf-charts').innerHTML = '<div class="shadow-sm"><canvas id="cnv_perf_chart" width="1000" height="800"></canvas></div>'
+    document.getElementById('perf-charts').innerHTML = '<div class="shadow-sm"><canvas id="cnv_perf_chart"></canvas></div>'
     //sort packer by performance 
     const data = monthPerformance(packersData)
     const packers = data.sort((firstPerson, secondPerson) => +secondPerson['totalAvg'] - +firstPerson['totalAvg'])
