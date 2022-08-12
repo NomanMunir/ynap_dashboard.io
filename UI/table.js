@@ -73,16 +73,15 @@ const makeTable = () => {
   tableHtml.push('</tfoot></table></div>')
   tableElement.innerHTML = tableHtml.join('');
 
-
+  //activating filter btn
   document.querySelector('#btn-filter-break').disabled = false
 
 
 
 
   // Charts
-  uphChart(packers);
-  // uphChart(packers)
-  perfChart(packers)
+  charts(packers);
+  //hidding spinner here
   spinner.innerHTML = ""
 
 }

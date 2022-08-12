@@ -1,0 +1,335 @@
+<html>
+
+<head>
+	<script>
+		const config = {
+			users: {
+				DHEAEOPS02: {
+					"username": "Janepher"
+				},
+				DHEAEOPS03: {
+					"username": "Abdullah"
+				},
+				DHEAEOPS04: {
+					"username": "Faheem"
+				},
+				DHEAEOPS05: {
+					"username": "Richard"
+				},
+				DHEAEOPS06: {
+					"username": "Zahoor"
+				},
+				DHEAEOPS07: {
+					"username": "Emily"
+				},
+				DHEAEOPS08: {
+					"username": "Hari"
+				},
+				DHEAEOPS09: {
+					"username": "John"
+				},
+				DHEAEOPS10: {
+					"username": "Usman"
+				},
+				DHEAEPCK01: {
+					"username": "Rohit"
+				},
+				DHEAEPCK02: {
+					"username": "Jonathan"
+				},
+				DHEAEPCK03: {
+					"username": "Teresia"
+				},
+				DHEAEPCK04: {
+					"username": "Sikander"
+				},
+				DHEAEPCK05: {
+					"username": "Subash"
+				},
+				DHEAEPCK06: {
+					"username": "Kennedy"
+				},
+				DHEAEPCK07: {
+					"username": "Taif"
+				},
+				DHEAEPCK08: {
+					"username": "Emmanuel"
+				},
+				DHEAEPCK09: {
+					"username": "Nauman"
+				},
+				DHEAESUP02: {
+					"username": "Pauline"
+				},
+				DHEAESUP03: {
+					"username": "Zahid"
+				},
+				DHEAESUP04: {
+					"username": "Alice"
+				},
+				DHEAESUP05: {
+					"username": "Nufail"
+				}
+			}
+		}
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.js"
+		integrity="sha512-bqapgtfTAZwLEfvkONLanNjF3avvKbrcB55QT5I6FDx/N0n/oqpn99bjJVvHdYQsVEVY22ViXJdtdPJYWuY9DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.js"
+		integrity="sha512-VcwFAndRWOHd2GciF0dxUnsMlQGvIWMzKaOECoZT/xvKE3B6Lsow+xtuoi+fI/hBKF2F05mgLcynmICdvI4a4g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<title>Ynap Dashboard</title>
+	<!-- CSS only -->
+	<style>
+		#drop-area {
+			border: 2px dashed #ccc;
+			border-radius: 20px;
+			width: 480px;
+			font-family: sans-serif;
+			margin: 100px auto;
+			padding: 20px;
+		}
+
+		#drop-area.highlight {
+			border-color: purple;
+		}
+
+		p {
+			margin-top: 0;
+		}
+
+		.my-form {
+			margin-bottom: 10px;
+		}
+
+		#gallery {
+			margin-top: 10px;
+		}
+
+		#gallery img {
+			width: 150px;
+			margin-bottom: 10px;
+			margin-right: 10px;
+			vertical-align: middle;
+		}
+
+		.button {
+			display: inline-block;
+			padding: 10px;
+			background: #ccc;
+			cursor: pointer;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+		}
+
+		.button:hover {
+			background: #ddd;
+		}
+
+		#fileElem {
+			display: none;
+		}
+	</style>
+	<style>
+		#table {
+			width: 900px;
+		}
+
+		table,
+		th,
+		td {
+			padding: 10px 15px;
+			text-align: center;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
+		<h1>Ynap Dashboard</h1>
+	</center>
+
+	<!-- <form id="fileForm" onsubmit="formSubmitHandler">
+		<input name="file" id="file" type="file" placeholder="Select file">
+	</form> -->
+	<div id="drop-area">
+		<form class="my-form">
+
+			<p>Upload files with the file dialog or by dragging and dropping onto the dashed region</p>
+			<input type="file" id="fileElem">
+			<label class="button" for="fileElem">Select file</label>
+		</form>
+	</div>
+	<center>
+
+		<div id="table">
+
+		</div>
+	</center>
+
+</body>
+<script>
+
+	const parseData = (file) => {
+
+		Papa.parse(file, {
+			header: true,
+			// dynamicTyping: true,
+			complete: function (results) {
+				groupByOrder(results.data)
+			}
+		});
+	}
+	let dropArea = document.getElementById('drop-area');
+	['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+		dropArea.addEventListener(eventName, preventDefaults, false)
+	})
+
+	function preventDefaults(e) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
+	;['dragenter', 'dragover'].forEach(eventName => {
+		dropArea.addEventListener(eventName, highlight, false)
+	})
+
+		;['dragleave', 'drop'].forEach(eventName => {
+			dropArea.addEventListener(eventName, unhighlight, false)
+		})
+
+	function highlight(e) {
+		dropArea.classList.add('highlight')
+	}
+
+	function unhighlight(e) {
+		dropArea.classList.remove('highlight')
+	}
+	dropArea.addEventListener('drop', handleDrop, false)
+
+	function handleDrop(e) {
+		let dt = e.dataTransfer
+		let files = dt.files['0']
+		parseData(files)
+	}
+
+	const makeTable = (data) => {
+		console.log(data);
+		const tableElement = document.querySelector('#table');
+		const tableHtml =
+			[`
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th scop="col">Staff Name</th>
+				<th scop="col">Pack ID</th>
+				<th scop="col">No# of Items</th>
+				<th scop="col">No# of Orders</th>
+				<th scop="col">UPO</th>
+				<th scop="col">UPH</th>
+				<th scop="col">Actual Time</th>
+				<th scop="col">Total Time</th>
+			</tr>
+		</thead>`];
+
+		if (data) {
+			const packId = Object.keys(data);
+			tableHtml.push(packId.filter(idForFilter => idForFilter !== "undefined" && idForFilter !== 'null' && idForFilter !== '')
+				.map((id, index) => {
+					const username = config['users'][id]['username'];
+					const numberOfItems = data[id]['items'];
+					const numberOfOrders = Object.keys(data[id]['orders']);
+					const upo = numberOfItems.length / numberOfOrders.length;
+
+					const actualTime = numberOfOrders.reduce((totalTime, order) => {
+						const packingStart = new Date(data[id]['orders'][order][0]['Packing Start'])
+						const packingEnd = new Date(data[id]['orders'][order][0]['Packing End'])
+						const diff = packingEnd.getTime() - packingStart.getTime()
+						if (diff < 1800000) {
+
+							return totalTime + diff
+						}
+						return totalTime
+					}, 0) / 3600000
+
+					let totalTime = 0;
+					// let currentIndex = 0
+					// let nextIndex = currentIndex + 1
+					// for (currentIndex; currentIndex < 10; currentIndex++) {
+					// 	// const firstOrder = new Date(data[id]['orders'][0]['Packing End'])
+					// 	// const secondOrder = new Date(data[id]['orders'][0]['Packing End'])
+
+					// 	const currentOrder = new Date(data[id]['orders'][numberOfOrders[currentIndex]][0]['Packing End']);
+					// 	const nextOrder = new Date(data[id]['orders'][numberOfOrders[nextIndex]][0]['Packing End']);
+					// 	console.log(currentOrder, '||', nextOrder);
+
+					// }
+					numberOfOrders.forEach((orderNumber, currentIndex, numberOfOrdersArray) => {
+						let nextIndex = currentIndex + 1
+						if (nextIndex > numberOfOrdersArray.length - 1) {
+							nextIndex = 0
+						}
+						const currentOrder = new Date(data[id]['orders'][numberOfOrdersArray[currentIndex]][0]['Packing End']);
+						const nextOrder = new Date(data[id]['orders'][numberOfOrdersArray[nextIndex]][0]['Packing End']);
+
+						const diff = Math.floor(nextOrder.getTime() - currentOrder.getTime())
+						if (diff < 180000) {
+							totalTime = totalTime + diff
+						}
+
+						console.log(currentOrder, nextOrder);
+					})
+
+					const totalTimeInHours = totalTime / 3600000
+
+					return `<tr>
+						<th scop="row">${username}</th>
+						<td>${id}</td>
+					<td>${numberOfItems.length}</td>
+					<td>${numberOfOrders.length}</td>
+					<td>${upo.toFixed(2)}</td>
+					<td></td>
+					<td>${actualTime.toFixed(2)}</td>
+					<td>${totalTimeInHours.toFixed(2)}</td>
+				</tr>`
+				}).join(''))
+			tableHtml.push('</table>')
+			tableElement.innerHTML = tableHtml.join('')
+		}
+	}
+
+	function inputChangeHandler(e) {
+		e.preventDefault();
+		const file = e.target.files[0];
+		if (file.type !== "text/csv") {
+			alert("Please select csv file")
+			return
+		}
+		parseData(file)
+	}
+	document.querySelector('input').addEventListener('change', inputChangeHandler)
+
+	const groupByOrder = (data) => {
+		const countOfItemByPackId = data.reduce((acc, order) => {
+			const packedBy = order['Packed by'];
+			const orders = order['Order Number']
+			acc[packedBy] = acc[packedBy] || {};
+			acc[packedBy]["items"] = acc[packedBy]["items"] || []
+			acc[packedBy]['orders'] = acc[packedBy]['orders'] || {}
+			acc[packedBy]['orders'][orders] = acc[packedBy]['orders'][orders] || []
+			acc[packedBy]["items"].push(order)
+			acc[packedBy]['orders'][orders].push(order)
+			return acc
+		}, {})
+		makeTable(countOfItemByPackId)
+	}
+
+
+</script>
