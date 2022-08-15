@@ -1,6 +1,4 @@
-
-
-const makeTable = () => {
+const makeTable = (packers) => {
   const tableElement = document.querySelector('#table');
   const tableHtml =
     [`
@@ -17,8 +15,6 @@ const makeTable = () => {
 					<th scop="col">Total Time</th>
           </tr>
           </thead><tbody>`];
-
-  const packers = getDataforTable()
 
   const grandTotalHr = packers.reduce((a, v) => a + v['totalTimeInHr'], 0);
   const grandTotalUph = packers.reduce((a, v) => a + v['uph'], 0);
@@ -80,8 +76,7 @@ const makeTable = () => {
 
 
   // Charts
-  charts(packers);
+  // charts(packers);
   //hidding spinner here
-  spinner.innerHTML = ""
 
 }

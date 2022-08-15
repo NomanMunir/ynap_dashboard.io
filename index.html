@@ -30,15 +30,40 @@
 </head>
 
 <body>
-	<div class="container d-flex justify-content-center">
-		<h1 class="display-4 align-middle text-warning" style="font-size:5vh;"><b>Ynap Dashboard</b></h1>
-		<p class="lead"></p>
+	<div class="container-fluid">
+		<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+				<!-- <svg class="bi me-2" width="40" height="32">
+					<use xlink:href="#bootstrap"></use>
+				</svg> -->
+				<span class="fs-4 text-warning"><b>YNAP</b></span>
+			</a>
+
+			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+				<input type="checkbox" class="btn-check" id="file-checkbox" autocomplete="off">
+				<label class="btn btn-outline-warning" for="file-checkbox">File</label>
+
+				<input type="checkbox" checked class="btn-check" id="perf-chart-checkbox" autocomplete="off">
+				<label class="btn btn-outline-warning" for="perf-chart-checkbox">Perf Chart</label>
+
+				<input type="checkbox" checked class="btn-check" id="uph-chart-checkbox" autocomplete="off">
+				<label class="btn btn-outline-warning" for="uph-chart-checkbox">Uph Chart</label>
+
+				<input type="checkbox" checked class="btn-check" id="table-checkbox" autocomplete="off">
+				<label class="btn btn-outline-warning" for="table-checkbox">Table</label>
+			</div>
+			<!-- <div>
+				<label for="formFileSm" class="form-label">Small</label>
+				<input class="form-control form-control-sm" id="formFileSm" type="file">
+			</div> -->
+			<!-- <input class="form-control" accept=".csv" type="file" multiple id="fileElem"> -->
+		</header>
 	</div>
+
 	<div id="drop-area" class="d-flex flex-column justify-content-center">
 		<form class="my-form mb-3">
 			<p>Upload files with the file dialog or by dragging and dropping onto the dashed region</p>
 			<input class="form-control" accept=".csv" type="file" multiple id="fileElem">
-			<!--<button class="btn btn-warning mb-3" type="submit">Make Dashboard</button>-->
 		</form>
 		<div class="break-time">
 			<label class="form-label" for="break-time">Select Break Time in Minutes.</label>
@@ -46,14 +71,15 @@
 			<button disabled="true" id="btn-filter-break" class="btn btn-primary mt-3">Filter</button>
 		</div>
 	</div>
-	<section class="d-flex flex-column justify-content-center gx-3">
-		<div class="mx-auto bg-white" id="perf-charts" style="width: 90vw; height:100vh;"></div>
-		<div id="table" class="mx-auto my-3 bg-white" style="width: 90vw; height:auto;"></div>
-		<div class="mx-auto bg-white" id="uph-charts" style="width: 90vw; height:100vh;"></div>
-	</section>
 	<center>
 		<div class="spinner"></div>
 	</center>
+	<section class="d-flex flex-column justify-content-center gx-3">
+		<div class="mx-auto my-3 bg-white" style="width: 90vw; height:auto;" id="perf-charts"></div>
+		<div id="table" class="mx-auto my-3 bg-white" style="width: 90vw; height:auto;"></div>
+		<div class="mx-auto bg-white" id="uph-charts" style="width: 90vw; height:100vh;"></div>
+	</section>
+	
 </body>
 <script src="scripts/drag-drop.js"></script>
 <script src="scripts/helpers.js"></script>

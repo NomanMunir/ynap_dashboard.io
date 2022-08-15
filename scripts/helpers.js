@@ -19,32 +19,6 @@ const getTotalTime = (packerData) => {
     return totalTimeInMs / 3600000;
 }
 
-const getDataforTable = () => {
-    const results = (Object.entries(segregatedData).slice().filter(([packerName, packerData]) => Object.keys(packerData['orders']).length > 2)
-        .reduce((result, [packerName, packerData]) => {
-
-            const packerId = packerData['items'][0]['Packed by']
-            const numberOfItems = packerData['items'];
-            const numberOfOrders = packerData['orders'];
-            const upo = numberOfItems.length / Object.keys(numberOfOrders).length;
-            const totalTimeInHr = getTotalTime(packerData)
-            const uph = numberOfItems.length / totalTimeInHr
-
-            result.push(
-                {
-                    packerName,
-                    packerId,
-                    numberOfItems,
-                    numberOfOrders,
-                    totalTimeInHr,
-                    upo,
-                    uph
-                }
-            )
-            return result
-        }, []));
-    return results
-}
 
 const toHoursAndMinutes = (hr) => {
     const padTo2Digits = (num) => {

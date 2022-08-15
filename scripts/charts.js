@@ -1,3 +1,4 @@
+
 const charts = (packersData) => {
     //Html Elements for charts
     document.getElementById('uph-charts').innerHTML = '<div class="shadow-sm m-3"><canvas id="cnv_uph_chart"></canvas></div>'
@@ -8,15 +9,14 @@ const charts = (packersData) => {
     const month = new Date(parsedData[0]["Packing End"]).toLocaleString('default', { month: 'long' });
 
     //Packer data sorterd
-    const perfData = calcuOverallPerf(packersData)
+    const perfData = calculatePerf(packersData);
     //sort by perf
-    const perfPackers = perfData.sort((firstPerson, secondPerson) => +secondPerson['totalAvg'] - +firstPerson['totalAvg'])
-
+    const perfPackers = perfData.sort((firstPerson, secondPerson) => +secondPerson['performance'] - +firstPerson['performance'])
 
     const uphPackers = packersData.sort((firstPerson, secondPerson) => +secondPerson['uph'] - +firstPerson['uph'])
     //Choose Background color for the charts bar
     const backgroundColorForUph = uphPackers.map(packer => chooseColorForUphChart(packer['uph']));
-    const backgroundColorForPerf = perfPackers.map(packer => chooseColorForPerfChart(packer['totalAvg']));
+    const backgroundColorForPerf = perfPackers.map(packer => chooseColorForPerfChart(packer['performance']));
 
     const uphChartData = {
         labels: uphPackers.map(packer => packer.packerName.toUpperCase()), //Packers Names
@@ -33,7 +33,7 @@ const charts = (packersData) => {
         labels: perfPackers.map(packer => packer.packerName.toUpperCase()),
         datasets: [{
             label: `Performance for ${month}`,
-            data: perfPackers.map(item => item["totalAvg"]),
+            data: perfPackers.map(item => item["performance"]),
             backgroundColor: backgroundColorForPerf,
             borderColor: backgroundColorForPerf,
             borderWidth: 1
@@ -41,6 +41,9 @@ const charts = (packersData) => {
     };
 
     const chartsPlugins = {
+        legend: {
+            //display: false
+        },
         // Change options for ALL labels of THIS CHART
         datalabels: {
             anchor: "end",
@@ -51,7 +54,7 @@ const charts = (packersData) => {
                 title: {
                     font: {
                         weight: 'bold',
-                        size: "25rem"
+                        size: "20rem"
                     }
                 },
                 //value: {
@@ -60,8 +63,7 @@ const charts = (packersData) => {
             },
             formatter: function (value, context) {
                 // console.log(context)
-                let name = uphPackers[context.dataIndex]["packerName"];
-                let uph = uphPackers[context.dataIndex]["uph"];
+                let name = perfPackers[context.dataIndex]["packerName"];
                 return [value, Array.from(name).join(" \n ")].join("\n\n");
                 return ["\n\n", "\n\n", value, "\n\n"];
                 //,Math.round(uph)
@@ -89,8 +91,18 @@ const charts = (packersData) => {
             loop: true
         }
     }
-    uphChart({ uphChartData, chartsOptions, chartsAnimation })
-    perfChart({ perfChartData, chartsOptions, chartsAnimation })
+
+    if (!uphChartCheckbox.checked) {
+        document.getElementById('uph-charts').innerHTML = '';
+    } else {
+        uphChart({ uphChartData, chartsOptions, chartsAnimation })
+    }
+    if (!perfChartCheckbox.checked) {
+        document.getElementById('perf-charts').innerHTML = '';
+    } else {
+
+        perfChart({ perfChartData, chartsOptions, chartsAnimation })
+    }
 }
 
 const uphChart = ({ uphChartData, chartsOptions, chartsAnimation }) => {
@@ -119,14 +131,20 @@ const perfChart = ({ perfChartData, chartsOptions, chartsAnimation }) => {
     });
     return myChart
 }
-const calcuOverallPerf = (packers) => {
+const calculatePerf = (packers) => {
     const packersAvgPerf = packers.reduce((a, packer) => {
         const avguph = calcuAvgOfUph(packer['uph'])
         const avgupo = calcuAvgOfUpo(packer['upo'])
         const avgHr = calcuAvgTime(packer['totalTimeInHr'])
         a.push({
             packerName: packer['packerName'],
-            totalAvg: avguph + avgupo + avgHr
+            performance: avguph + avgupo + avgHr,
+            items: packer['numberOfItems'],
+            orders: packer['numberOfOrders'],
+            packerId: packer['packerId'],
+            hoursWorked: packer['totalTimeInHr'],
+            uph: packer['uph'],
+            upo: packer['upo']
         })
         return a
     }, [])

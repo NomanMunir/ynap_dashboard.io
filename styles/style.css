@@ -6,6 +6,10 @@ section {
 
 }
 
+.display-none {
+    display: none;
+}
+
 #table {
     box-shadow: 0 6px 14px 0 rgba(33, 35, 68, .05);
     margin: 10px;
@@ -17,11 +21,17 @@ section {
     margin: 10px;
     background-color: white;
 }
+.spinner{
+	width:400px;
+	margin: auto;
+  z-index: 100;
+}
 
 #drop-area {
     border: 2px dashed #ccc;
     border-radius: 20px;
-    width: 450px;
+    width: 50vw;
+    height: 60vh;		
     font-family: sans-serif;
     margin: 50px auto;
     padding: 20px;
