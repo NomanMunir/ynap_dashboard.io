@@ -53,8 +53,9 @@ const charts = (packersData) => {
             labels: {
                 title: {
                     font: {
+                        family: "Delivery",
                         weight: 'bold',
-                        size: "20rem"
+                        size: "15rem"
                     }
                 },
                 //value: {
@@ -78,7 +79,20 @@ const charts = (packersData) => {
         responsive: true,
         scales: {
             y: {
-                beginAtZero: true
+                title: {
+                    display: true,
+                    align: "center",
+                    text: "Packer's Performance",
+                    font: {
+                        family: "Delivery",
+                        weight: 'bold',
+                        size: "25rem"
+                    },
+                },
+            },
+            x: {
+
+                display: false
             }
         }
     }
@@ -112,7 +126,26 @@ const uphChart = ({ uphChartData, chartsOptions, chartsAnimation }) => {
         type: "bar",
         plugins: [ChartDataLabels],
         data: uphChartData,
-        options: chartsOptions,
+        options: {
+            ...chartsOptions, scales: {
+                y: {
+                    title: {
+                        display: true,
+                        align: "center",
+                        text: "Packer's UPH",
+                        font: {
+                            family: "Delivery",
+                            weight: 'bold',
+                            size: "20rem"
+                        },
+                    },
+                },
+                x: {
+
+                    display: false
+                }
+            }
+        },
         animations: chartsAnimation
     });
     return uphChart
@@ -131,6 +164,8 @@ const perfChart = ({ perfChartData, chartsOptions, chartsAnimation }) => {
     });
     return myChart
 }
+
+
 const calculatePerf = (packers) => {
     const packersAvgPerf = packers.reduce((a, packer) => {
         const avguph = calcuAvgOfUph(packer['uph'])
