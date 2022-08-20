@@ -46,11 +46,12 @@
 				<input type="checkbox" checked class="btn-check" id="perf-chart-checkbox" autocomplete="off">
 				<label class="btn btn-outline-warning" for="perf-chart-checkbox">Perf Chart</label>
 
+				<input type="checkbox" checked class="btn-check" id="table-checkbox" autocomplete="off">
+				<label class="btn btn-outline-warning" for="table-checkbox">Table</label>
+
 				<input type="checkbox" checked class="btn-check" id="uph-chart-checkbox" autocomplete="off">
 				<label class="btn btn-outline-warning" for="uph-chart-checkbox">Uph Chart</label>
 
-				<input type="checkbox" checked class="btn-check" id="table-checkbox" autocomplete="off">
-				<label class="btn btn-outline-warning" for="table-checkbox">Table</label>
 			</div>
 			<!-- <div>
 				<label for="formFileSm" class="form-label">Small</label>
@@ -79,7 +80,7 @@
 		<div id="table" class="mx-auto my-3 bg-white" style="width: 90vw; height:auto;"></div>
 		<div class="mx-auto bg-white" id="uph-charts" style="width: 90vw; height:100vh;"></div>
 	</section>
-	
+
 </body>
 <script src="scripts/drag-drop.js"></script>
 <script src="scripts/helpers.js"></script>

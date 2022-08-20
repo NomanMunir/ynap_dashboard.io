@@ -10,22 +10,36 @@ const fileCheckbox = document.querySelector('#file-checkbox');
 
 
 // Parsing files Here with Papaparse
-const parseData = (files) => {
+// const parseData = (files) => {
+//     spinner.innerHTML = spinnerElem;
+//     // const file = files[0]
+//     Object.values(files).forEach(file => {
+//         Papa.parse(file, {
+//             header: true,
+//             skipEmptyLines: true,
+//             dynamicTyping: true,
+//             complete: function (results) {
+//                 parsedData = results.data
+//                 getPackersData();
+//             }
+//         })
+//     });
+// }
+(() => {
     spinner.innerHTML = spinnerElem;
     // const file = files[0]
-    Object.values(files).forEach(file => {
-        Papa.parse(file, {
-            header: true,
-            skipEmptyLines: true,
-            dynamicTyping: true,
-            complete: function (results) {
-                parsedData = results.data
-                getPackersData();
-            }
-        })
-    });
-}
-
+    Papa.parse("/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/01_January_2022_Logins file.csv", {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+        complete: function (results) {
+            console.log(results);
+            parsedData = results.data
+            getPackersData();
+        }
+    })
+})()
 
 
 const getPackersData = () => {
