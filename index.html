@@ -39,7 +39,8 @@
 				<span class="fs-4 text-warning"><b>YNAP</b></span>
 			</a>
 
-			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+
+			<div class="btn-group btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
 				<input hidden type="checkbox" class="btn-check" id="file-checkbox" autocomplete="off">
 				<label hidden class="btn btn-outline-warning" for="file-checkbox">File</label>
 
@@ -53,6 +54,8 @@
 				<label class="btn btn-outline-warning" for="uph-chart-checkbox">Uph Chart</label>
 
 			</div>
+			<div class="mx-2" id="select-year-menu"></div>
+			<div class="mx-2" id="select-month-menu"></div>
 			<!-- <div>
 				<label for="formFileSm" class="form-label">Small</label>
 				<input class="form-control form-control-sm" id="formFileSm" type="file">
@@ -91,19 +94,5 @@
 <script src="scripts/segregations.js"></script>
 <script src="app.js"></script>
 <script>
-	(() => {
-		spinner.innerHTML = spinnerElem;
-		// const file = files[0]
-		Papa.parse("/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/07_July_2022_Logins file.csv", {
-			download: true,
-			header: true,
-			skipEmptyLines: true,
-			dynamicTyping: true,
-			complete: function (results) {
-				console.log(results);
-				parsedData = results.data
-				getPackersData();
-			}
-		})
-	})()
+
 </script>

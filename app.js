@@ -1,12 +1,28 @@
 let parsedData, packersData;
 
+
+
 // Html Elements
 const perfChartCheckbox = document.querySelector('#perf-chart-checkbox');
 const uphChartCheckbox = document.querySelector('#uph-chart-checkbox');
 const tableCheckbox = document.querySelector('#table-checkbox');
 const fileCheckbox = document.querySelector('#file-checkbox');
 
-
+// (() => {
+//     spinner.innerHTML = spinnerElem;
+//     // const file = files[0]
+//     Papa.parse("/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/01_January_2022_Logins file.csv", {
+//         download: true,
+//         header: true,
+//         skipEmptyLines: true,
+//         dynamicTyping: true,
+//         complete: function (results) {
+//             console.log(results);
+//             parsedData = results.data
+//             getPackersData();
+//         }
+//     })
+// })()
 
 
 // Parsing files Here with Papaparse
@@ -25,23 +41,24 @@ const fileCheckbox = document.querySelector('#file-checkbox');
 //         })
 //     });
 // }
+
 (() => {
     spinner.innerHTML = spinnerElem;
     // const file = files[0]
-    Papa.parse("/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/01_January_2022_Logins file.csv", {
+    Papa.parse("/csv/07_July_2022_Logins file.csv", {
         download: true,
         header: true,
         skipEmptyLines: true,
         dynamicTyping: true,
         complete: function (results) {
-            console.log(results);
             parsedData = results.data
+            const years = [...new Set(parsedData.map(data => new Date(data['Packing Start']).getFullYear()))]
+            console.log(years);
             getPackersData();
+            createSelectYearMenu(years)
         }
     })
 })()
-
-
 const getPackersData = () => {
     const cleanAndSortedData = parsedData.sort((a, b) => {
         return new Date(a['Packing End']) - new Date(b["Packing End"])
@@ -156,4 +173,5 @@ perfChartCheckbox.addEventListener('change', perfChartCheckboxChangeHandler);
 tableCheckbox.addEventListener('change', tableCheckboxChangeHandler);
 uphChartCheckbox.addEventListener('change', uphChartCheckboxChangeHandler);
 fileCheckbox.addEventListener('change', fileChartCheckboxChangeHandler)
+
 

@@ -55,7 +55,7 @@ const charts = (packersData) => {
                     font: {
                         family: "Delivery",
                         weight: 'bold',
-                        size: "15rem",
+                        size: "20rem",
                     }
                 },
                 //value: {
