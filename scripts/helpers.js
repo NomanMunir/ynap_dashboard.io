@@ -1,6 +1,7 @@
 const getTotalTime = (packerData) => {
 
     let breakTime = document.querySelector('#break-time').value;
+    breakTime = breakTime || 60
     breakTime = +breakTime * 1000 * 60;
     let totalTimeInMs = 0;
 

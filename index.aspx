@@ -5,9 +5,6 @@
 	<link rel="stylesheet" href="styles/style.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.css"
-		integrity="sha512-72LrFm5Wau6YFp7GGd7+qQJYkzRKj5UMQZ4aFuEo3WcRzO0xyAkVjK3NEw8wXjEsEG/skqvXKR5+VgOuzuqPtA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
@@ -21,9 +18,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"
 		integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"
-		integrity="sha512-yhdujT21BI/kqk9gcupTh4jMwqLhb+gc6Ytgs4cL0BJjXW+Jo9QyllqLbuluI0cBHqV4XsR7US3lemEGjogQ0w=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 	<title>Ynap Dashboard</title>
 
@@ -39,7 +34,11 @@
 				<span class="fs-4 text-warning"><b>YNAP</b></span>
 			</a>
 
-			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+			<div>
+				<input class="form-control form-control" style="display: none;" defaultValue="60"
+					placeholder="Press Enter To Filter" type="text" name="Fileter" id="break-time">
+			</div>
+			<div class="btn-group btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
 				<input hidden type="checkbox" class="btn-check" id="file-checkbox" autocomplete="off">
 				<label hidden class="btn btn-outline-warning" for="file-checkbox">File</label>
 
@@ -53,6 +52,23 @@
 				<label class="btn btn-outline-warning" for="uph-chart-checkbox">Uph Chart</label>
 
 			</div>
+			<div class="mx-2" id="select-year-menu"></div>
+			<div class="mx-2" style="display: none;" id="select-month-menu">
+				<select id="selected-month" class="form-select form-select-sm btn-warning" aria-label="Select Month">
+					<option value="January">January</option>
+					<option value="February">February</option>
+					<option value="March">March</option>
+					<option value="April">April</option>
+					<option value="May">May</option>
+					<option value="June">June</option>
+					<option value="July">July</option>
+					<option value="August">August</option>
+					<option value="September">September</option>
+					<option value="October">October</option>
+					<option value="November">November</option>
+					<option value="December">December</option>
+				</select>
+			</div>
 			<!-- <div>
 				<label for="formFileSm" class="form-label">Small</label>
 				<input class="form-control form-control-sm" id="formFileSm" type="file">
@@ -60,18 +76,7 @@
 			<!-- <input class="form-control" accept=".csv" type="file" multiple id="fileElem"> -->
 		</header>
 	</div>
-	<!-- d-flex flex-column justify-content-center -->
-	<div id="drop-area" class="display-none">
-		<form class="my-form mb-3">
-			<p>Upload files with the file dialog or by dragging and dropping onto the dashed region</p>
-			<input class="form-control" accept=".csv" type="file" multiple id="fileElem">
-		</form>
-		<div class="break-time">
-			<label class="form-label" for="break-time">Select Break Time in Minutes.</label>
-			<input class="form-control" value="60" placeholder="Default 60m" type="number" name" id="break-time">
-			<button disabled="true" id="btn-filter-break" class="btn btn-primary mt-3">Filter</button>
-		</div>
-	</div>
+
 	<center>
 		<div class="spinner"></div>
 	</center>
@@ -82,7 +87,7 @@
 	</section>
 
 </body>
-<script src="scripts/drag-drop.js"></script>
+<!-- <script src="scripts/drag-drop.js"></script> -->
 <script src="scripts/helpers.js"></script>
 <script src="scripts/config.js"></script>
 <script src="UI/elements.js"></script>
@@ -91,19 +96,25 @@
 <script src="scripts/segregations.js"></script>
 <script src="app.js"></script>
 <script>
-	(() => {
-		spinner.innerHTML = spinnerElem;
+	const parseData = () => {
+		spinner("add")
 		// const file = files[0]
-		Papa.parse("/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/07_July_2022_Logins file.csv", {
+		const selectedMonth = selcetMonthMenuElem.value
+		Papa.parse(`/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/${selectedMonth}_2022_Logins file.csv`, {
 			download: true,
 			header: true,
 			skipEmptyLines: true,
 			dynamicTyping: true,
+			error: function (error, file) {
+				alert(`Month Or Year Not Found :-(`)
+				spinner("remove")
+				selcetMonthMenuElem.value = "January"
+			},
 			complete: function (results) {
-				console.log(results);
 				parsedData = results.data
 				getPackersData();
+				// createSelectYearMenu(years)
 			}
 		})
-	})()
+	}
 </script>

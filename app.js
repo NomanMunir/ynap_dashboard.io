@@ -3,62 +3,31 @@ let parsedData, packersData;
 
 
 // Html Elements
-const perfChartCheckbox = document.querySelector('#perf-chart-checkbox');
-const uphChartCheckbox = document.querySelector('#uph-chart-checkbox');
-const tableCheckbox = document.querySelector('#table-checkbox');
-const fileCheckbox = document.querySelector('#file-checkbox');
 
-// (() => {
-//     spinner.innerHTML = spinnerElem;
+
+
+// const parseData = () => {
+//     addSpinner()
 //     // const file = files[0]
-//     Papa.parse("/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/01_January_2022_Logins file.csv", {
+//     const selectedMonth = selcetMonthMenuElem.value
+//     Papa.parse(`/csv/${selectedMonth}_2022_Logins file.csv`, {
 //         download: true,
 //         header: true,
 //         skipEmptyLines: true,
 //         dynamicTyping: true,
+//         error: function (error, file) {
+//             alert(`Month Not Found :-(`)
+//             resetSpinner()
+//             selcetMonthMenuElem.value = "January"
+//         },
 //         complete: function (results) {
-//             console.log(results);
 //             parsedData = results.data
 //             getPackersData();
+//             // createSelectYearMenu(years)
 //         }
 //     })
-// })()
-
-
-// Parsing files Here with Papaparse
-// const parseData = (files) => {
-//     spinner.innerHTML = spinnerElem;
-//     // const file = files[0]
-//     Object.values(files).forEach(file => {
-//         Papa.parse(file, {
-//             header: true,
-//             skipEmptyLines: true,
-//             dynamicTyping: true,
-//             complete: function (results) {
-//                 parsedData = results.data
-//                 getPackersData();
-//             }
-//         })
-//     });
 // }
 
-(() => {
-    spinner.innerHTML = spinnerElem;
-    // const file = files[0]
-    Papa.parse("/csv/07_July_2022_Logins file.csv", {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-        dynamicTyping: true,
-        complete: function (results) {
-            parsedData = results.data
-            const years = [...new Set(parsedData.map(data => new Date(data['Packing Start']).getFullYear()))]
-            console.log(years);
-            getPackersData();
-            createSelectYearMenu(years)
-        }
-    })
-})()
 const getPackersData = () => {
     const cleanAndSortedData = parsedData.sort((a, b) => {
         return new Date(a['Packing End']) - new Date(b["Packing End"])
@@ -100,25 +69,9 @@ const getPackersData = () => {
         }, []));
     packersData = results;
 
-    perfChartCheckbox.checked = true;
-    uphChartCheckbox.checked = true;
-    tableCheckbox.checked = true;
-    fileCheckbox.checked = false;
-
-    if (!fileCheckbox.checked) {
-        dropArea.className = "display-none";
-        fileCheckbox.checked = false;
-    } else {
-        dropArea.className = "d-flex flex-column justify-content-center";
-    }
-    if (!tableCheckbox.checked) {
-        document.querySelector('#table').className = "display-none";
-    } else {
-        makeTable(results)
-    }
+    makeTable(results)
     charts(results);
-    spinner.innerHTML = ""
-
+    spinner("remove")
 }
 
 
@@ -154,6 +107,12 @@ const fileChartCheckboxChangeHandler = (e) => {
     }
 }
 
+const timeFilterChangeHandler = (e) => {
+    if (e.key == "Enter") {
+        getPackersData()
+    }
+}
+
 // Handling input files Here 
 function fileChangeHandler(e) {
     e.preventDefault();
@@ -166,12 +125,22 @@ function fileChangeHandler(e) {
 }
 
 
-document.querySelector('#fileElem').addEventListener('change', fileChangeHandler)
-document.querySelector('#btn-filter-break').addEventListener('click', () => getPackersData())
+
+const onMonthChangehandler = (e) => {
+    parseData()
+}
+
+selcetMonthMenuElem.addEventListener('change', onMonthChangehandler)
+
+// document.querySelector('#fileElem').addEventListener('change', fileChangeHandler)
+document.querySelector('#break-time').addEventListener('keypress', timeFilterChangeHandler)
 
 perfChartCheckbox.addEventListener('change', perfChartCheckboxChangeHandler);
 tableCheckbox.addEventListener('change', tableCheckboxChangeHandler);
 uphChartCheckbox.addEventListener('change', uphChartCheckboxChangeHandler);
-fileCheckbox.addEventListener('change', fileChartCheckboxChangeHandler)
+fileCheckbox.addEventListener('change', fileChartCheckboxChangeHandler);
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    parseData();
+});

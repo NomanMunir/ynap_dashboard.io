@@ -69,14 +69,4 @@ const makeTable = (packers) => {
   tableHtml.push('</tfoot></table></div>')
   tableElement.innerHTML = tableHtml.join('');
 
-  //activating filter btn
-  document.querySelector('#btn-filter-break').disabled = false
-
-
-
-
-  // Charts
-  // charts(packers);
-  //hidding spinner here
-
 }
