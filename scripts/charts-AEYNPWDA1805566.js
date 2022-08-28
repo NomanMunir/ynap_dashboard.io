@@ -19,7 +19,7 @@ const charts = (packersData) => {
     const backgroundColorForPerf = perfPackers.map(packer => chooseColorForPerfChart(packer['performance']));
 
     const uphChartData = {
-        labels: uphPackers.map(packer => packer.packerName.toUpperCase()), //Packers Names
+        labels: uphPackers.map(packer => packer.packerName.toUpperCase()), //Packers Name
         datasets: [{
             label: `UPH for ${month}`,
             data: uphPackers.map(item => ~~item["uph"]),
@@ -64,8 +64,7 @@ const charts = (packersData) => {
             },
             formatter: function (value, context) {
                 // console.log(context)
-                let name = context.chart.config._config.data.labels[context.dataIndex];
-                // let name = perfPackers[context.dataIndex]["packerName"];
+                let name = perfPackers[context.dataIndex]["packerName"];
                 return [value, Array.from(name).join(" \n ")].join("\n\n");
                 return ["\n\n", "\n\n", value, "\n\n"];
                 //,Math.round(uph)

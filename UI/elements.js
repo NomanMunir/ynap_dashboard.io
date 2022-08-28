@@ -17,8 +17,8 @@ const spinner = (value) => {
 		</div>`
 	} else if (value == "remove") {
 		spinnerElem.innerHTML = '';
-	}else{
-		return 
+	} else {
+		return
 	}
 };
 const resetSpinner = () => {
@@ -26,7 +26,7 @@ const resetSpinner = () => {
 
 
 
-// -----------------------------------Check Boxes---------------------------------- //
+// -----------------------------------Check Boxes Elements---------------------------------- //
 const perfChartCheckbox = document.querySelector('#perf-chart-checkbox');
 const uphChartCheckbox = document.querySelector('#uph-chart-checkbox');
 const tableCheckbox = document.querySelector('#table-checkbox');
