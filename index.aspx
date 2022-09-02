@@ -27,7 +27,7 @@
 <body>
 	<div class="container-fluid">
 		<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+			<a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
 				<!-- <svg class="bi me-2" width="40" height="32">
 					<use xlink:href="#bootstrap"></use>
 				</svg> -->
@@ -35,8 +35,8 @@
 			</a>
 
 			<div>
-				<input class="form-control form-control" style="display: none;" defaultValue="60"
-					placeholder="Press Enter To Filter" type="text" name="Fileter" id="break-time">
+				<input class="form-control form-control" defaultValue="60" placeholder="Press Enter To Filter"
+					type="text" name="Fileter" id="break-time">
 			</div>
 			<div class="btn-group btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
 				<input hidden type="checkbox" class="btn-check" id="file-checkbox" autocomplete="off">
@@ -53,7 +53,7 @@
 
 			</div>
 			<div class="mx-2" id="select-year-menu"></div>
-			<div class="mx-2" style="display: none;" id="select-month-menu">
+			<div class="mx-2" id="select-month-menu">
 				<select id="selected-month" class="form-select form-select-sm btn-warning" aria-label="Select Month">
 					<option value="January">January</option>
 					<option value="February">February</option>
@@ -106,9 +106,8 @@
 			skipEmptyLines: true,
 			dynamicTyping: true,
 			error: function (error, file) {
-				alert(`Month Or Year Not Found :-(`)
-				spinner("remove")
-				selcetMonthMenuElem.value = "January"
+				alert(`Month or Year Not Found!`)
+				spinner("remove");
 			},
 			complete: function (results) {
 				parsedData = results.data

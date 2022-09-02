@@ -109,14 +109,17 @@ const charts = (packersData) => {
     }
 
     if (!uphChartCheckbox.checked) {
-        document.getElementById('uph-charts').innerHTML = '';
+        document.querySelector('#uph-charts').className = "display-none";
+        uphChart({ uphChartData, chartsOptions, chartsAnimation })
+
     } else {
         uphChart({ uphChartData, chartsOptions, chartsAnimation })
     }
     if (!perfChartCheckbox.checked) {
-        document.getElementById('perf-charts').innerHTML = '';
-    } else {
+        document.querySelector('#perf-charts').className = "display-none";
+        perfChart({ perfChartData, chartsOptions, chartsAnimation })
 
+    } else {
         perfChart({ perfChartData, chartsOptions, chartsAnimation })
     }
 }

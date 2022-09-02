@@ -110,6 +110,7 @@ const fileChartCheckboxChangeHandler = (e) => {
 const timeFilterChangeHandler = (e) => {
     if (e.key == "Enter") {
         getPackersData()
+        document.querySelector('#break-time').value = "";
     }
 }
 
