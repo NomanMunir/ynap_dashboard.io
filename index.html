@@ -98,16 +98,16 @@
 	const parseData = () => {
 		spinner("add")
 		// const file = files[0]
-		const selectedMonth = selcetMonthMenuElem.value
+		const selectedMonth = selcetMonthMenuElem.value;
 		Papa.parse(`/csv/${selectedMonth}_2022_Logins file.csv`, {
 			download: true,
 			header: true,
 			skipEmptyLines: true,
 			dynamicTyping: true,
 			error: function (error, file) {
-				alert('Month Not Found :-(')
-				spinner("remove")
-				selcetMonthMenuElem.value = "January"
+				alert('Month Not Found!');
+				spinner("remove");
+				// selcetMonthMenuElem.value = "January";
 			},
 			complete: function (results) {
 				parsedData = results.data

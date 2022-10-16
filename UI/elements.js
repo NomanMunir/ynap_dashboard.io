@@ -21,8 +21,6 @@ const spinner = (value) => {
 		return
 	}
 };
-const resetSpinner = () => {
-};
 
 
 

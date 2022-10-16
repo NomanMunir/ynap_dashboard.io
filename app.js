@@ -29,24 +29,26 @@ let parsedData, packersData;
 // }
 
 const getPackersData = () => {
-    const cleanAndSortedData = parsedData.sort((a, b) => {
+    const packersDataGroupByNames = parsedData.sort((a, b) => {
         return new Date(a['Packing End']) - new Date(b["Packing End"])
-    });
-    const packersDataGroupByNames = cleanAndSortedData
-        .filter(order => order['Packer Name'] !== "undefined" && order['Packer Name'] !== 'null' && order['Packer Name'] !== '' && order["Packer Name"] !== undefined && order["Order ID"])
+    })
+        .filter(order => order['Packer Name'] !== "undefined" && order['Packer Name'] !== 'null' &&
+            order['Packer Name'] !== '' && order["Packer Name"] !== undefined && order["Order ID"])
         .reduce((acc, order) => {
             const packerName = order['Packer Name'].toUpperCase().trim();
-            const orders = order['Order Number']
+            const orders = order['Order Number'];
             acc[packerName] = acc[packerName] || {};
-            acc[packerName]["items"] = acc[packerName]["items"] || []
-            acc[packerName]['orders'] = acc[packerName]['orders'] || {}
+            acc[packerName]["items"] = acc[packerName]["items"] || [];
+            acc[packerName]['orders'] = acc[packerName]['orders'] || {};
             acc[packerName]['orders'][orders] = acc[packerName]['orders'][orders] || []
-            acc[packerName]["items"].push(order)
-            acc[packerName]['orders'][orders].push(order)
+            if (acc[packerName]['orders'][orders].length <= 60) {
+                acc[packerName]['orders'][orders].push(order);
+                acc[packerName]["items"].push(order);
+            }
             return acc
         }, {})
-
-    const results = (Object.entries(packersDataGroupByNames).slice().filter(([packerName, packerData]) => Object.keys(packerData['orders']).length > 2)
+    const results = (Object.entries(packersDataGroupByNames).slice()
+        .filter(([packerName, packerData]) => Object.values(packerData['orders']).filter((val) => val.length <= 50).length > 2)
         .reduce((result, [packerName, packerData]) => {
             const packerId = packerData['items'][0]['Packed by'];
             const numberOfItems = packerData['items'];

@@ -1,4 +1,5 @@
 const makeTable = (packers) => {
+  packers.sort((a, b) => b.numberOfItems.length - a.numberOfItems.length)
   const tableElement = document.querySelector('#table');
   const tableHtml =
     [`
