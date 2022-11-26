@@ -41,7 +41,7 @@ const getPackersData = () => {
             acc[packerName]["items"] = acc[packerName]["items"] || [];
             acc[packerName]['orders'] = acc[packerName]['orders'] || {};
             acc[packerName]['orders'][orders] = acc[packerName]['orders'][orders] || []
-            if (acc[packerName]['orders'][orders].length <= 60) {
+            if (acc[packerName]['orders'][orders].length <= 100) {
                 acc[packerName]['orders'][orders].push(order);
                 acc[packerName]["items"].push(order);
             }

@@ -35,14 +35,14 @@ const makeTable = (packers) => {
     } = packer
 
     return `
-    <tr>
-    <th scop="row">${capitalize(packerName)}</th>
+    <tr data-bs-toggle="modal" data-bs-target="#modal">
+    <th onclick="modal('${packerName}')" scop="row">${capitalize(packerName)}</th>
     <td>${packerId}</td>
     			<td>${numberOfItems.length}</td>
     			<td>${Object.keys(numberOfOrders).length}</td>
-    			<td >${upo.toFixed(2)}</td>
-    			<td >${uph.toFixed(2)}</td>
-    			<td >${toHoursAndMinutes(totalTimeInHr)} hr</td>
+    			<td>${upo.toFixed(2)}</td>
+    			<td>${uph.toFixed(2)}</td>
+    			<td>${toHoursAndMinutes(totalTimeInHr)} hr</td>
     	</tr>`
   }).join(""))
 
@@ -71,3 +71,4 @@ const makeTable = (packers) => {
   tableElement.innerHTML = tableHtml.join('');
 
 }
+

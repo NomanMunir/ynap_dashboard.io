@@ -53,3 +53,23 @@ function camelize(str) {
 const capitalize = (str, lower = false) =>
     (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
 
+// -----------------------------------Modal---------------------------------- //
+const modalElement = document.querySelector('#modal');
+
+const modal = (data) => {
+    // modalElement.innerHTML
+    const items = packersData.filter(name => name.packerName == data)[0].numberOfItems;
+    const html = [];
+    html.push(`
+    <div class="modal-body">
+<table class="table-primary">
+    `)
+    html.push(items.map(item => `
+        <tr>
+            <td scope="col">${item.Item}</td>
+            <td scope="col">${item.City}</td>
+        </tr>
+    `).join(""))
+    html.push('<table/></div>');
+    modalElement.innerHTML = html.join("");
+}
