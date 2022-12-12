@@ -34,7 +34,7 @@
 			</a>
 
 			<div title="Enter Value And Press Enter to filter the Break Time">
-				<input class="form-control form-control" defaultValue="60" placeholder="Filter Field" type="text"
+				<input class="form-control form-control" defaultValue="60" placeholder="Filter Break Time" type="text"
 					name="Fileter" id="break-time">
 			</div>
 			<div class="btn-group btn-group-sm" role="group" aria-label="Basic checkbox toggle button group">
@@ -51,7 +51,7 @@
 				<label class="btn btn-outline-warning" for="uph-chart-checkbox">Uph Chart</label>
 
 			</div>
-			<div class="mx-2" id="select-year-menu"></div>
+
 			<div class="mx-2" id="select-month-menu">
 				<select id="selected-month" class="form-select form-select-sm btn-warning" aria-label="Select Month">
 					<option value="January">January</option>
@@ -66,6 +66,11 @@
 					<option value="October">October</option>
 					<option value="November">November</option>
 					<option value="December">December</option>
+				</select>
+			</div>
+			<div class="mx-2" id="select-year-menu">
+				<select id="selected-year" class="form-select form-select-sm btn-warning" aria-label="Select Year">
+					<option value="2022">2022</option>
 				</select>
 			</div>
 			<!-- <div>
@@ -94,14 +99,13 @@
 <script src="UI/elements.js"></script>
 <script src="UI/table.js"></script>
 <script src="scripts/charts.js"></script>
-<script src="scripts/segregations.js"></script>
 <script src="app.js"></script>
 <script>
 	const parseData = () => {
 		spinner("add")
-		// const file = files[0]
-		const selectedMonth = selcetMonthMenuElem.value;
-		Papa.parse(`/csv/${selectedMonth}_2022_Logins file.csv`, {
+		const selectedYear = yearMenuElem.value;
+		const selectedMonth = monthMenuElem.value;
+		Papa.parse(`/csv/${selectedMonth}_${selectedYear}_Logins file.csv`, {
 			download: true,
 			header: true,
 			skipEmptyLines: true,
@@ -109,12 +113,10 @@
 			error: function (error, file) {
 				alert('Month Not Found!');
 				spinner("remove");
-				// selcetMonthMenuElem.value = "January";
 			},
 			complete: function (results) {
 				parsedData = results.data
 				getPackersData();
-				// createSelectYearMenu(years)
 			}
 		})
 	}

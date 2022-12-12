@@ -133,7 +133,7 @@ const onMonthChangehandler = (e) => {
     parseData()
 }
 
-selcetMonthMenuElem.addEventListener('change', onMonthChangehandler)
+monthMenuElem.addEventListener('change', onMonthChangehandler)
 
 // document.querySelector('#fileElem').addEventListener('change', fileChangeHandler)
 document.querySelector('#break-time').addEventListener('keypress', timeFilterChangeHandler)

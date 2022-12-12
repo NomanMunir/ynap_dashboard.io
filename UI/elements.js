@@ -1,6 +1,6 @@
 const spinnerElem = document.querySelector('.spinner');
-const selcetYearMenuElem = document.querySelector("#select-year-menu");
-const selcetMonthMenuElem = document.querySelector("#selected-month");
+const yearMenuElem = document.querySelector("#selected-year");
+const monthMenuElem = document.querySelector("#selected-month");
 
 
 
@@ -21,6 +21,11 @@ const spinner = (value) => {
 		return
 	}
 };
+
+// --------------------Setting previous month as a default month------------------------------ //
+const current = new Date();
+current.setMonth(current.getMonth() - 1);
+monthMenuElem.value = current.toLocaleString('default', { month: 'long' });
 
 
 
