@@ -99,25 +99,25 @@
 <script src="scripts/charts.js"></script>
 <script src="app.js"></script>
 <script>
-	const parseData = () => {
-		spinner("add")
-		// const file = files[0]
-		const selectedMonth = monthMenuElem.value;
-		const selectedYear = yearMenuElem.value;
-		Papa.parse(`/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/${selectedMonth}_${selectedYear}_Logins file.csv`, {
-			download: true,
-			header: true,
-			skipEmptyLines: true,
-			dynamicTyping: true,
-			error: function (error, file) {
-				alert(`Month or Year Not Found!`)
-				spinner("remove");
-			},
-			complete: function (results) {
-				parsedData = results.data
-				getPackersData();
-				// createSelectYearMenu(years)
-			}
-		})
-	}
+	// const parseData = () => {
+	// 	spinner("add")
+	// 	// const file = files[0]
+	// 	const selectedMonth = monthMenuElem.value;
+	// 	const selectedYear = yearMenuElem.value;
+	// 	Papa.parse(`/personal/nauman_munir_dhl_com/Documents/Ynap%20Dashboard/csv/${selectedMonth}_${selectedYear}_Logins file.csv`, {
+	// 		download: true,
+	// 		header: true,
+	// 		skipEmptyLines: true,
+	// 		dynamicTyping: true,
+	// 		error: function (error, file) {
+	// 			alert(`Month or Year Not Found!`)
+	// 			spinner("remove");
+	// 		},
+	// 		complete: function (results) {
+	// 			parsedData = results.data
+	// 			getPackersData();
+	// 			// createSelectYearMenu(years)
+	// 		}
+	// 	})
+	// }
 </script>

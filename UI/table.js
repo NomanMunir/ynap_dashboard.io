@@ -1,4 +1,6 @@
-const makeTable = (packers) => {
+import { capitalize, toHoursAndMinutes } from "../scripts/helpers.js";
+
+export const makeTable = (packers) => {
   packers.sort((a, b) => b.numberOfItems.length - a.numberOfItems.length)
   const tableElement = document.querySelector('#table');
   const tableHtml =
@@ -35,8 +37,8 @@ const makeTable = (packers) => {
     } = packer
 
     return `
-    <tr data-bs-toggle="modal" data-bs-target="#modal">
-    <th onclick="modal('${packerName}')" scop="row">${capitalize(packerName)}</th>
+    <tr>
+    <th scop="row">${capitalize(packerName)}</th>
     <td>${packerId}</td>
     			<td>${numberOfItems.length}</td>
     			<td>${Object.keys(numberOfOrders).length}</td>

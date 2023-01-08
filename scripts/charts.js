@@ -1,13 +1,13 @@
+import { perfChartCheckboxElem, uphChartCheckboxElem } from "../UI/elements.js";
 
-const charts = (packersData) => {
+export const charts = (packersData) => {
     //Html Elements for charts
     document.getElementById('uph-charts').innerHTML = '<div class="shadow-sm m-3"><canvas id="cnv_uph_chart"></canvas></div>'
     document.getElementById('perf-charts').innerHTML = '<div class="shadow-sm"><canvas id="cnv_perf_chart"></canvas></div>'
 
     //Currert year and Month
-    const year = new Date(parsedData[0]["Packing End"]).getFullYear();
-    const month = new Date(parsedData[0]["Packing End"]).toLocaleString('default', { month: 'long' });
-
+    // const year = new Date(packersData['numberOfItems'][0]["packingEnd"]);
+    const month = new Date(packersData[0]['numberOfItems'][0]["packingEnd"]).toLocaleTimeString();//.toLocaleString('default', { month: 'long' });
     //Packer data sorterd
     const perfData = calculatePerf(packersData);
     //sort by perf
@@ -108,14 +108,14 @@ const charts = (packersData) => {
         }
     }
 
-    if (!uphChartCheckbox.checked) {
+    if (!uphChartCheckboxElem.checked) {
         document.querySelector('#uph-charts').className = "display-none";
         uphChart({ uphChartData, chartsOptions, chartsAnimation })
 
     } else {
         uphChart({ uphChartData, chartsOptions, chartsAnimation })
     }
-    if (!perfChartCheckbox.checked) {
+    if (!perfChartCheckboxElem.checked) {
         document.querySelector('#perf-charts').className = "display-none";
         perfChart({ perfChartData, chartsOptions, chartsAnimation })
 
